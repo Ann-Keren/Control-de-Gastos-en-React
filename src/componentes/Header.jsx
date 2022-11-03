@@ -6,9 +6,11 @@ import Control from "./Control";
 
 //estos son props
     const Header=({presupuesto, setPresupuesto, validPresupuesto, setValidPresupuesto}) =>{
-return(
+
+        return(
     <header>
         <h1> Planificador de Gastos</h1>
+
         { validPresupuesto ? (
             <Control
             presupuesto={presupuesto}
