@@ -5,7 +5,7 @@ import Control from "./Control";
 //function Header(){
 
 //estos son props
-    const Header=({presupuesto, setPresupuesto, validPresupuesto, setValidPresupuesto}) =>{
+    const Header=({gastos, presupuesto, setPresupuesto, validPresupuesto, setValidPresupuesto}) =>{
 
         return(
     <header>
@@ -13,6 +13,7 @@ import Control from "./Control";
 
         { validPresupuesto ? (
             <Control
+            gastos ={gastos}
             presupuesto={presupuesto}
             />
         ) : (

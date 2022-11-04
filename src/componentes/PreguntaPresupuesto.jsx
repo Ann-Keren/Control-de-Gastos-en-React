@@ -2,18 +2,18 @@
 import { useState } from "react"
 //importamos el componentente de mensaje
 import Mensaje from "./Mensaje"
+
+//se crea la constante para mandar el mesaje del presupuesto si es correcto o no y un string vacio en el useState
 const PreguntaPresupuesto = ({
     presupuesto, setPresupuesto, setValidPresupuesto }) => {
-    //se crea la constante para mandar el mesaje del presupuesto si es correcto o no y un string vacio en el useState
+    
     const [mensaje, setMensaje] = useState('')
     //admiistar presupuesto ->admPresupuesto
     const admPresupuesto = (e) => {
-
         e.preventDefault();
         //se evalua si el presupuesto es menor a 0 o negativos 
         if (!presupuesto || presupuesto < 0) {
             setMensaje('no es un presupuesto valido')
-
             return
         }
         setMensaje('')
