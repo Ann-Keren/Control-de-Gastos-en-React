@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import Header from "./componentes/header"
 import ListaGastos from "./componentes/ListaGastos"
@@ -8,6 +8,8 @@ import IconoNuevoGasto from "./img/icon-NuevoGasto.svg"
 
 function App() {
 
+  const [gastos, setGastos]= useState([])
+
   const [presupuesto, setPresupuesto] = useState(0)
   const [validPresupuesto, setValidPresupuesto] = useState(false)
 //aqui modal es una ventana que se va abrir al agregar un nuevo gasto se definio como ventana, se pone el valor useState como falso por que no se quiere que al princio se ejecute y lo llamamos con el setVentana y ahi se cambia el valor booleano con un click a la imagen y se abra la ventana
@@ -15,7 +17,20 @@ function App() {
   //se agrega otro hook para animar modal o la ventana 
   const [animarVentana,setAnimarVentana]= useState(false)
 //otro useState pero con un arreglo
-  const [gastos, setGastos]= useState([])
+
+//se define un nuevo useState y este va iniciar como un objeto 
+const [gastoEditar, setGastoEditar]= useState ({})
+
+//el useEffect va estar escuchando por los cambios que se dan al objeto de gastoEditar y el setGastoEditar
+ 
+useEffect(() => {
+  if(Object.keys(gastoEditar).length >0 ){
+    admNuevoGasto()
+  }
+
+}, [gastoEditar])
+
+  
   const admNuevoGasto =()=>{
     setVentana(true)
     
@@ -51,7 +66,7 @@ const guardarGasto = gasto =>{
   return (
     <div className={ventana ? 'overflow-hidden h-screen' : ''}>
       <Header
-      gastos={gastos}
+        gastos={gastos}
         presupuesto={presupuesto}
         setPresupuesto={setPresupuesto}
         validPresupuesto={validPresupuesto}
@@ -66,6 +81,7 @@ gastos es un arreglo que esta vacio lo poemos adentro del componente para extrae
         <main>
           <ListaGastos
               gastos={gastos}
+              setGastoEditar={setGastoEditar}
           />
 
         </main>
