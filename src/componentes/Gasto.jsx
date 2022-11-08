@@ -37,7 +37,7 @@ const formaFecha = fecha => {
 }
 
 
-const Gasto = ({ gasto, setGastoEditar }) => {
+const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
   const { categoria, nombre, cantidad, id, fecha } = gasto;
 
   const leadingActions = () => (
@@ -49,7 +49,10 @@ const Gasto = ({ gasto, setGastoEditar }) => {
   )
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction className="flex justify-center items-center text-3xl text-right bg-red-600 text-white my-8" onClick={() => console.log('eliminar..')}> Eliminar
+      <SwipeAction className="flex justify-center items-center text-3xl text-right bg-red-600 text-white my-8" onClick={() => eliminarGasto(id)}
+      destructive={true}
+      >
+         Eliminar
       </SwipeAction>
     </TrailingActions>
   )

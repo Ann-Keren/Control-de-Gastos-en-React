@@ -4,7 +4,7 @@ import Gasto from './Gasto'
 gastos.map el map se ejecuta una vez por cada elemento que hay
 
 se extrae setGastoEditar toda la informacion que tiene en la app que es la principal extrae y se pueda maipular e la listad de gastos*/
-const ListaGastos = ({gastos,setGastoEditar}) => {
+const ListaGastos = ({gastos,setGastoEditar, eliminarGasto}) => {
   return (
     <div className='mx-20 font-black text-slate-600 w-11/12 max-w-7xl '>
         
@@ -15,6 +15,7 @@ const ListaGastos = ({gastos,setGastoEditar}) => {
             key={gasto.id}
             gasto={gasto}
             setGastoEditar={setGastoEditar}
+            eliminarGasto={eliminarGasto}
             />
         ))}
     </div>

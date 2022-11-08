@@ -1,17 +1,37 @@
 
 import CerrarBtn from '../img/icons-close.svg'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Mensaje from './Mensaje'
 //importar useState
-const VentanaEmergente = ({ setVentana, animarVentana, setAnimarVentana,guardarGasto }) => {
+const VentanaEmergente = ({ 
+    setVentana, 
+    animarVentana, 
+    setAnimarVentana,
+    guardarGasto,
+    gastoEditar,
+    setGastoEditar 
+}) => {
 //se declara el useState y co input vacio
 const [mensaje, setMensaje] = useState('')
     const[nombre,setNombre]= useState('')
     const [cantidad,setCantidad]= useState('')
     const [categoria, setCategoria]= useState('')
+    const [fecha, setFecha] = useState('')
+    const [id, setId]= useState('')
+
+    useEffect(() =>{
+        if(Object.keys(gastoEditar).length >0 ){
+            setNombre(gastoEditar.nombre)
+            setCantidad(gastoEditar.cantidad)
+            setCategoria(gastoEditar.categoria)
+            setId(gastoEditar.id)
+            setFecha(gastoEditar.fecha)
+        }
+    }, [])
 
     const ocultarVentana = () => {
         setAnimarVentana(false)
+        setGastoEditar({})
         setTimeout(() => {
             setVentana(false)
         }, 1000)
@@ -30,7 +50,7 @@ const [mensaje, setMensaje] = useState('')
             return
         }
         //este es un objeto
-        guardarGasto ({nombre,cantidad,categoria})
+        guardarGasto ({nombre,cantidad,categoria,id, fecha})
     }
     return (
         <div className=" absolute bg-gray-800 inset-0 ">
@@ -47,7 +67,7 @@ const [mensaje, setMensaje] = useState('')
             onSubmit={handleSubmit}
             className={'text-center block max-w-7xl w-11/12 m-0 px-40  transition-all opacity-0  ${animarVentana ? "relative opacity-100 " : opacity-0}'} >
 
-                <legend className='text-6xl text-center block uppercase text-white mb-16 pb-4 border-y-2'>Nuevo Gasto</legend>
+                <legend className='text-6xl text-center block uppercase text-white mb-16 pb-4 border-y-2'>{gastoEditar.nombre ? 'Editar Gasto' : 'Nuevo Gasto'}</legend>
                 {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
 
                 <div className='grid mb-8 text-center'>
@@ -94,7 +114,7 @@ const [mensaje, setMensaje] = useState('')
                     </select>
                 </div>
                 <input className="bg-rose-500 border-none p-4 text-center mt-2  text-white font-bold uppercase text-2xl w-full transition-colors rounded-2xl" type="submit"
-                    value="Añadir Gasto" />
+                    value={gastoEditar.nombre ? 'Guardar Cambios' : 'Añadir Gasto'} />
             </form>
         </div>
     )
