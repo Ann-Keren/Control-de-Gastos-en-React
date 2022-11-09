@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 
 import Header from "./componentes/header"
+import Filtro from "./componentes/Filtro"
 import ListaGastos from "./componentes/ListaGastos"
 import VentanaEmergente from "./componentes/VentanaEmergente"
 
@@ -8,9 +9,15 @@ import IconoNuevoGasto from "./img/icon-NuevoGasto.svg"
 
 function App() {
 
-  const [gastos, setGastos] = useState([])
+  //la condicion del localStorage es lo q es te adentro del arreglo se almacen si no este un arreglo vacio y lo convierte, recuerda el localStorage es string 
+  const [gastos, setGastos] = useState(
+    localStorage.getItem('gastos') ? JSON.parse(localStorage.getItem('gastos')) : [])
 
-  const [presupuesto, setPresupuesto] = useState(0)
+  const [presupuesto, setPresupuesto] = useState(
+    JSON.parse(localStorage.getItem('presupuesto')) ?? 0
+  )
+
+
   const [validPresupuesto, setValidPresupuesto] = useState(false)
   //aqui modal es una ventana que se va abrir al agregar un nuevo gasto se definio como ventana, se pone el valor useState como falso por que no se quiere que al princio se ejecute y lo llamamos con el setVentana y ahi se cambia el valor booleano con un click a la imagen y se abra la ventana
   const [ventana, setVentana] = useState(false)
@@ -23,6 +30,9 @@ function App() {
 
   //el useEffect va estar escuchando por los cambios que se dan al objeto de gastoEditar y el setGastoEditar
 
+  const [filtro, setFiltro] = useState('')
+  const [gastosFiltrados, setGastosFiltrados] = useState([])
+
   useEffect(() => {
     if (Object.keys(gastoEditar).length > 0) {
       setVentana(true)
@@ -30,9 +40,33 @@ function App() {
         setAnimarVentana(true)
       }, 1000);
     }
-
   }, [gastoEditar])
 
+  useEffect(() => {
+    localStorage.setItem('presupuesto', presupuesto ?? 0)
+  }, [presupuesto])
+
+  useEffect(() => {
+    localStorage.setItem('gastos', JSON.stringify(gastos) ?? [])
+  }, [gastos])
+
+  useEffect (() => {
+    if(filtro){
+      //filtrar gastos por categoria
+      const gastosFiltrados = gastos.filter(gasto => gasto.categoria === filtro)
+      setGastosFiltrados(gastosFiltrados)
+
+    }
+
+  }, [filtro])
+
+  useEffect(() => {
+    const presupuestoLS = JSON.parse(localStorage.getItem('presupuesto')) ?? 0
+
+    if (presupuestoLS > 0) {
+      setValidPresupuesto(true)
+    }
+  }, [])
 
   const admNuevoGasto = () => {
     setVentana(true)
@@ -54,34 +88,35 @@ function App() {
   }
 
   const guardarGasto = gasto => {
-     if(gasto.id){
+    if (gasto.id) {
       //actualizar
-      const gastosAct= gastos.map(gastoState => gastoState.id === gasto.id ? gasto : gastoState)
+      const gastosAct = gastos.map(gastoState => gastoState.id === gasto.id ? gasto : gastoState)
       setGastos(gastosAct)
       setGastoEditar({}) //sirve para limpiar el state por que una vez que poniamos editar el objeto se llena y no se vacia y al poner el objeto vacio una vez editado el gasto se pone en vacio y asi se evita algunos problemas
 
-     } else{
+    } else {
       //nuevo gasto
-    gasto.id = generarId()
-    //console.log(gasto)
-    gasto.fecha = Date.now()
-    setGastos([...gastos, gasto])
-     }
+      gasto.id = generarId()
+      //console.log(gasto)
+      gasto.fecha = Date.now()
+      setGastos([...gastos, gasto])
+    }
     setAnimarVentana(false)
     setTimeout(() => {
       setVentana(false)
     }, 1000)
 
-    
- }
-  const eliminarGasto = id =>{
-      const gastosAct=gastos.filter(gasto => gasto.id !== id)
-      setGastos(gastosAct)
-    }
+
+  }
+  const eliminarGasto = id => {
+    const gastosAct = gastos.filter(gasto => gasto.id !== id)
+    setGastos(gastosAct)
+  }
   return (
     <div className={ventana ? 'overflow-hidden h-screen' : ''}>
       <Header
         gastos={gastos}
+        setGastos={setGastos}
         presupuesto={presupuesto}
         setPresupuesto={setPresupuesto}
         validPresupuesto={validPresupuesto}
@@ -94,10 +129,16 @@ gastos es un arreglo que esta vacio lo poemos adentro del componente para extrae
       {validPresupuesto && (
         <>
           <main>
+            <Filtro
+              filtro={filtro}
+              setFiltro={setFiltro}
+            />
             <ListaGastos
               gastos={gastos}
               setGastoEditar={setGastoEditar}
               eliminarGasto={eliminarGasto}
+              filtro ={filtro}
+              gastosFiltrados={gastosFiltrados}
             />
 
           </main>

@@ -42,14 +42,14 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
 
   const leadingActions = () => (
     <LeadingActions >
-      <SwipeAction className="flex justify-center items-center text-3xl text-right bg-blue-600 text-white my-8" onClick={() => setGastoEditar(gasto)}>
+      <SwipeAction className="rounded-3xl w-full flex justify-center items-center text-3xl text-right bg-blue-600 text-white my-8" onClick={() => setGastoEditar(gasto)}>
         Editar
       </SwipeAction>
     </LeadingActions>
   )
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction className="flex justify-center items-center text-3xl text-right bg-red-600 text-white my-8" onClick={() => eliminarGasto(id)}
+      <SwipeAction className="rounded-3xl w-full flex justify-center items-center text-3xl text-right bg-red-600 text-white my-8" onClick={() => eliminarGasto(id)}
       destructive={true}
       >
          Eliminar
@@ -64,20 +64,21 @@ const Gasto = ({ gasto, setGastoEditar, eliminarGasto }) => {
         trailingActions={trailingActions()}
       >
 
-        <div className='shadow-black bg-sky-400  p-16 rounded-3xl flex-row justify-between items-center gap-16 mb-8 mt-10 flex w-full max-w-7xl m-40 text-3xl  text-center font-bold  '>
+        <div className='shadow-lg p-12 rounded-3xl w-full  m-auto flex items-center gap-24 shadow-black bg-blue-400 justify-center mb-8 mt-8 text-3xl  text-center        
+        '>
           <div className='flex items-center gap-8'>
             <img
               src={diccionarioIconos[categoria]}
               alt="Icono Gasto"
             />
-            <div className='mb-4'>
-              <p className='text-2xl font-black uppercase text-gray-600 '>
+            <div className='mb-8 '>
+              <p className='text-2xl font-black uppercase text-gray-700 items-center flex justify-center '>
                 {categoria}
               </p>
-              <p className='text-3xl font-bold text-gray-900'>
+              <p className='p-4 text-3xl font-bold text-gray-900'>
                 {nombre}
               </p>
-              <p className='text-3xl font-bold'> Agregado el: {''} <span className='font-normal'>{formaFecha(fecha)}</span></p>
+              <p className='text-3xl font-bold items-center text-gray-700 p-4'> Agregado el: {''} <span className='font-normal'>{formaFecha(fecha)}</span></p>
             </div>
           </div>
           <p className='text-3xl font-black'>${cantidad} </p>
