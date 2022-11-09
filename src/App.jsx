@@ -9,7 +9,6 @@ import IconoNuevoGasto from "./img/icon-NuevoGasto.svg"
 
 function App() {
 
-  //la condicion del localStorage es lo q es te adentro del arreglo se almacen si no este un arreglo vacio y lo convierte, recuerda el localStorage es string 
   const [gastos, setGastos] = useState(
     localStorage.getItem('gastos') ? JSON.parse(localStorage.getItem('gastos')) : [])
 
@@ -19,16 +18,12 @@ function App() {
 
 
   const [validPresupuesto, setValidPresupuesto] = useState(false)
-  //aqui modal es una ventana que se va abrir al agregar un nuevo gasto se definio como ventana, se pone el valor useState como falso por que no se quiere que al princio se ejecute y lo llamamos con el setVentana y ahi se cambia el valor booleano con un click a la imagen y se abra la ventana
+
   const [ventana, setVentana] = useState(false)
-  //se agrega otro hook para animar modal o la ventana 
+
   const [animarVentana, setAnimarVentana] = useState(false)
-  //otro useState pero con un arreglo
 
-  //se define un nuevo useState y este va iniciar como un objeto 
   const [gastoEditar, setGastoEditar] = useState({})
-
-  //el useEffect va estar escuchando por los cambios que se dan al objeto de gastoEditar y el setGastoEditar
 
   const [filtro, setFiltro] = useState('')
   const [gastosFiltrados, setGastosFiltrados] = useState([])
@@ -50,8 +45,8 @@ function App() {
     localStorage.setItem('gastos', JSON.stringify(gastos) ?? [])
   }, [gastos])
 
-  useEffect (() => {
-    if(filtro){
+  useEffect(() => {
+    if (filtro) {
       //filtrar gastos por categoria
       const gastosFiltrados = gastos.filter(gasto => gasto.categoria === filtro)
       setGastosFiltrados(gastosFiltrados)
@@ -71,10 +66,7 @@ function App() {
   const admNuevoGasto = () => {
     setVentana(true)
     setGastoEditar({})
-
-    // se pone el setTimeout pata cuado le demos al +nuevo gasto se haga una transicion y apararesca el formulario,  cuando el setventana cambia al true entoces se ejecuta setTimeout a los 3 segundos 
     setTimeout(() => {
-      //console.log('animando modal...')
       setAnimarVentana(true)
     }, 1000);
 
@@ -92,12 +84,10 @@ function App() {
       //actualizar
       const gastosAct = gastos.map(gastoState => gastoState.id === gasto.id ? gasto : gastoState)
       setGastos(gastosAct)
-      setGastoEditar({}) //sirve para limpiar el state por que una vez que poniamos editar el objeto se llena y no se vacia y al poner el objeto vacio una vez editado el gasto se pone en vacio y asi se evita algunos problemas
+      setGastoEditar({})
 
     } else {
-      //nuevo gasto
       gasto.id = generarId()
-      //console.log(gasto)
       gasto.fecha = Date.now()
       setGastos([...gastos, gasto])
     }
@@ -122,10 +112,7 @@ function App() {
         validPresupuesto={validPresupuesto}
         setValidPresupuesto={setValidPresupuesto}
       />
-      {/*es una validacion en donde si el presupuesto es true entonces la imagen aparecera en la siguiente formulario se utiliza doble && es mas corto y ya no es necesario una validacion
-gastos es un arreglo que esta vacio lo poemos adentro del componente para extraerlo y lo pasemos al componente lista gastos */ }
-
-
+      
       {validPresupuesto && (
         <>
           <main>
@@ -137,7 +124,7 @@ gastos es un arreglo que esta vacio lo poemos adentro del componente para extrae
               gastos={gastos}
               setGastoEditar={setGastoEditar}
               eliminarGasto={eliminarGasto}
-              filtro ={filtro}
+              filtro={filtro}
               gastosFiltrados={gastosFiltrados}
             />
 
@@ -154,7 +141,7 @@ gastos es un arreglo que esta vacio lo poemos adentro del componente para extrae
       )}
 
 
-      {/* se hace otra validacion con la ventana emergente*/ /*ponemos animarmodal para saber cuando cambio a true  */}
+    
       {ventana && <VentanaEmergente
         setVentana={setVentana}
         animarVentana={animarVentana}

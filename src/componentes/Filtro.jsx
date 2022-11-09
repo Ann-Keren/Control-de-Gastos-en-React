@@ -4,12 +4,13 @@ const Filtro = ({filtro, setFiltro}) => {
 
 
     return (
-        <div className='shadow-lg bg-white p-16 rounded-3xl w-11/12 max-w-7xl m-auto flex items-center gap-8    '>
+        <div className='shadow-lg shadow-black bg-orange-200 p-8 rounded-3xl w-full max-w-6xl m-auto flex items-center gap-8    '>
             <form >
-                <div className='flex items-center gap-8 '>
-                    <label className='text-5xl font-black fon text-gray-600'> Filtrar Gastos</label>
+                <div className='w-full flex items-center  gap-8 '>
+                    <label className='text-3xl font-black fon text-gray-600 text-center mx-20'> Filtrar Gastos</label>
                     <select 
-                        className='flex-1 p-4 border-none rounded-2xl text-center bg-red-200 text-3xl font-bold text-gray-600' 
+                        className='flex mx-24 p-4 border-none rounded-2xl text-center bg-teal-100 text-2xl   font-bold text-gray-700' 
+
                         value={filtro}
                         onChange={ e => setFiltro(e.target.value) }
                     >

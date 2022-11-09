@@ -24,6 +24,14 @@ dist-ssr
 *.sw?
  
 
- /vite.config.js
+ /vite.config.js 
  /package-lock.json
  /package.json
+ 
+
+ 
+ 
+src/componentes/Gastos.jsx
+src/componentes/error.jsx
+src/componentes/formularios.jsx
+

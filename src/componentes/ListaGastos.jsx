@@ -1,12 +1,9 @@
 import React from 'react'
 import Gasto from './Gasto'
-/* en el parametro de arrow function ponemos gastos para extraerlo o lo exportamos del arreglo que esta en la app y hacemos esta funcion o metodo ? si hay algo en gastos poner gastos como titulo : entonces si no hay nada poner no hay gastos aun
-gastos.map el map se ejecuta una vez por cada elemento que hay
 
-se extrae setGastoEditar toda la informacion que tiene en la app que es la principal extrae y se pueda maipular e la listad de gastos*/
 const ListaGastos = ({ gastos, setGastoEditar, eliminarGasto, filtro, gastosFiltrados }) => {
   return (
-    <div className='mx-20 font-black text-slate-600 w-11/12 max-w-7xl '>
+    <div className='mx-24 font-black text-slate-800 w-full max-w-7xl m-9'>
 
 
 

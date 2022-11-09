@@ -41,14 +41,14 @@ const Control = ({gastos,setGastos, presupuesto, setPresupuesto, setValidPresupu
         } 
     }
   return (
-    <div className='mt-10 flex justify-between items-center w-4/5 max-w-7xl m-auto shadow-black bg-orange-200 p-16 rounded-3xl flex-row text-3xl mb-8 text-center font-bold gap-16 '>
+    <div className='mt-10 flex justify-between items-center w-full max-w-6xl m-auto shadow-black shadow-lg bg-orange-200 p-4 rounded-3xl flex-row text-3xl mb-8 text-center font-bold gap-16 '>
     
         <div>
             <CircularProgressbar 
                 styles={buildStyles({
-                    pathColor:porcentaje > 100 ?'#DC2626': '#e3b8b2',
+                    pathColor:porcentaje > 100 ?'#DC2626': '#69a2a8',
                     trailColor:'#fffbd4',
-                    textColor: porcentaje > 100 ?'#DC2626' : '#a18093',
+                    textColor: porcentaje > 100 ?'#DC2626' : '#69a2a8',
                     textSize:'9px'
                 })}
                 value={porcentaje}
@@ -57,23 +57,23 @@ const Control = ({gastos,setGastos, presupuesto, setPresupuesto, setValidPresupu
             />
         </div>
 
-        <div className='w-full  text-center text-3xl font-semibold '>
-           <button className='border-none bg-red-600 p-2 w-11/12 text-center text-white uppercase font-bold rounded-2xl transition-colors  '
+        <div className='w-full  text-center text-2xl font-semibold '>
+           <button className='border-none bg-red-600 p-1 w-6/12 text-center text-white uppercase font-bold rounded-2xl transition-colors  '
                     type='button'
                     onClick={handleResetApp}>
             Resetear App
            </button>
-            <p className='mb-8 p-1 font-light text-black my-6'>
-                <span className=' font-black mb-8 p-4 text-slate-800'> Presupuesto:</span>{formaCantidad(presupuesto)} 
+            <p className='mb-2 p-1 font-medium text-slate-700 my-4'>
+                <span className=' font-bold p-4 text-slate-800'> Presupuesto:</span>{formaCantidad(presupuesto)} 
             </p>
 
-            <p className={`${dispoible <0 ? 'text-red-800': 'b-8 p-1 font-light text-black'}`}>
+            <p className={`${dispoible <0 ? 'mb-2 p-1 text-red-600 font-medium': 'mb-2 p-1 font-medium text-slate-700'}`}>
 
-                <span className={`${dispoible <0 ?'text-red-800' : ' font-black mb-8 p-2 text-teal-800'}`}> Disponible:</span> {formaCantidad(dispoible)}
+                <span className={`${dispoible <0 ?'mb-2 p-1 text-red-600 font-bold' : ' font-bold p-2 text-slate-800'}`}> Disponible:</span> {formaCantidad(dispoible)}
             </p>
             
-            <p className='mb-8 p-1 font-light text-black'>
-                <span className=' font-black mb-8 p-2 text-teal-800'> Gastado:</span> {formaCantidad(gastado)}
+            <p className='mb-2 p-1 font-medium text-slate-700'>
+                <span className=' font-bold p-2 text-slate-800'> Gastado:</span> {formaCantidad(gastado)}
             </p>
         </div>
     </div>
